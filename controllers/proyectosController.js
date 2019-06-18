@@ -1,6 +1,3 @@
 exports.proyectosHome =  (req, res) => {
-    res.send('Index');
+    res.render('index');
 };
-
-// Buscar los Template Engines más utilizados con Node.js
-// pug, EJS, Handlebars (mustache.js)
