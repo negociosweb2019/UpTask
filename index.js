@@ -8,6 +8,9 @@ const path = require('path');
 // Crear una App de express
 const app = express();
 
+// Desde dónde se cargan los archivos estáticos
+app.use(express.static('public'));
+
 // Habilitar Pug como nuestro Template Engine
 app.set('view engine', 'pug');
 
