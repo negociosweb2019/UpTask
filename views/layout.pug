@@ -7,11 +7,26 @@ html(lang="es")
         link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Lato&display=swap")
         link(rel="stylesheet", href="/css/normalize.css")
         link(rel="stylesheet", href="/css/app.css")
-        title UpTask
+        title #{nombrePagina}
     body
         header.barra
             h1 UpTask - Administrador de proyectos
             a(href="#") Cerrar sesión
-        // Contenido de cada controlador
-        block contenido
+        main.contenedor
+            aside.contenedor-proyectos
+                .panel.crear-proyecto
+                    a(href="/nuevo_proyecto" class="boton") Nuevo proyecto
+                        span +
+                .panel.lista-proyectos
+                    h2 Proyectos
+                    ul#proyectos.proyectos
+                        li
+                            a(href="#") Diseño de tienda virtual
+                        li
+                            a(href="#") Portal Laudato Si
+                        li
+                            a(href="") Proyecto final de Negocios Web
+
+            // Contenido de cada controlador
+            block contenido
     

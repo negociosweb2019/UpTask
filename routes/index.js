@@ -9,6 +9,8 @@ const proyectosController = require
 module.exports = function() {
 
     router.get('/', proyectosController.proyectosHome);
+    router.get('/nuevo_proyecto', proyectosController.formularioProyecto);
+    router.post('/nuevo_proyecto', proyectosController.nuevoProyecto);
 
     return router;
 }
