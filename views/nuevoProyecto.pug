@@ -4,6 +4,11 @@ block contenido
     .contenido-principal
         h1 #{nombrePagina}
 
+        //- Si hay errores en la validación del formulario
+        if errores
+            each error in errores
+                .alerta #{error.texto}
+
         form(class="agregar-proyecto" method="POST")
             .campo
                 label(for="nombre") Nombre del proyecto:
