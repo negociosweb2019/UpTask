@@ -7,6 +7,16 @@ const path = require('path');
 // Importar los módulos para utilizar body parser
 const bodyParser = require('body-parser');
 
+// Crear la conexión con la Base de Datos
+const db = require('./config/db');
+
+// Realizar la conexión
+// Sequelize se conecta mediante promises
+// https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Promise
+db.authenticate()
+    .then(() => console.log('Conectado al servidor de BD'))
+    .catch(error => console.log(error));
+
 // Crear una App de express
 const app = express();
 
