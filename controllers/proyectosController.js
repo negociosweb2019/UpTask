@@ -1,3 +1,6 @@
+// Importar el modelo
+const Proyecto = require('../models/Proyecto');
+
 exports.proyectosHome =  (req, res) => {
     res.render('index', {
         nombrePagina : 'Proyectos'
@@ -10,7 +13,7 @@ exports.formularioProyecto = (req, res) => {
     });
 };
 
-exports.nuevoProyecto = (req, res) => {
+exports.nuevoProyecto = async (req, res) => {
     // Validar que el input del formulario traiga un valor
     // Utilizamos asignación por destructuring
     // https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Operadores/Destructuring_assignment
@@ -31,5 +34,9 @@ exports.nuevoProyecto = (req, res) => {
     } else {
         // No existen errores
         // Inserción en la base de datos.
+        const proyecto = await Proyecto.create({ nombre });
+
+        // Redirigir hacia la ruta principal
+        res.redirect('/');
     }
 };
