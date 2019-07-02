@@ -17,7 +17,14 @@ module.exports = function() {
     // Implementar la validación con express-validator
     router.post('/nuevo_proyecto', 
         body('nombre').not().isEmpty().trim().escape(),
-        proyectosController.nuevoProyecto);
+        proyectosController.nuevoProyecto
+    );
+
+    // Mostrar un proyecto existente mediante su URL
+    router.get('/proyectos/:url', proyectosController.proyectoPorUrl);
+
+    // Actualizar un proyecto
+    router.get('/proyecto/editar/:id', proyectosController.formularioEditar);
 
     return router;
 }

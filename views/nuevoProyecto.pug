@@ -7,7 +7,7 @@ block contenido
         //- Si hay errores en la validación del formulario
         if errores
             each error in errores
-                .alerta #{error.texto}
+                .alerta.error #{error.texto}
 
         form(class="agregar-proyecto" method="POST")
             .campo

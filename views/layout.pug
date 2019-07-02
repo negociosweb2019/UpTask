@@ -23,11 +23,8 @@ html(lang="es")
                         if (proyectos)
                             each proyecto in proyectos
                                 li
-                                    a(href="#") #{proyecto.nombre}
+                                    a(href=`/proyectos/${proyecto.url}`) #{proyecto.nombre}
                         
 
             // Contenido de cada controlador
             block contenido
-
-            pre #{vardump(proyectos)}
-    
