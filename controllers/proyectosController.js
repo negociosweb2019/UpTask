@@ -1,9 +1,13 @@
 // Importar el modelo
 const Proyecto = require('../models/Proyecto');
 
-exports.proyectosHome =  (req, res) => {
+exports.proyectosHome = async (req, res) => {
+    // Obtener todos los proyectos
+    const proyectos = await Proyecto.findAll();
+
     res.render('index', {
-        nombrePagina : 'Proyectos'
+        nombrePagina : 'Proyectos',
+        proyectos
     });
 };
 

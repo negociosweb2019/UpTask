@@ -6,6 +6,8 @@ const routes = require('./routes');
 const path = require('path');
 // Importar los módulos para utilizar body parser
 const bodyParser = require('body-parser');
+// Importar los helpers con funciones en común para el proyecto
+const helpers = require('./helpers');
 
 // Crear la conexión con la Base de Datos
 const db = require('./config/db');
@@ -31,6 +33,12 @@ app.set('view engine', 'pug');
 
 // Habilitar BodyParser para leer los datos de los formularios
 app.use(bodyParser.urlencoded({extended: true}));
+
+// Pasar el vardump a la aplicación (middleware)
+app.use((req, res, next) => {
+    res.locals.vardump = helpers.vardump;
+    next();
+});
 
 // Añadir la carpeta (ruta) que contiene las View (vistas)
 app.set('views', path.join(__dirname, './views'));

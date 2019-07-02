@@ -20,13 +20,14 @@ html(lang="es")
                 .panel.lista-proyectos
                     h2 Proyectos
                     ul#proyectos.proyectos
-                        li
-                            a(href="#") Diseño de tienda virtual
-                        li
-                            a(href="#") Portal Laudato Si
-                        li
-                            a(href="") Proyecto final de Negocios Web
+                        if (proyectos)
+                            each proyecto in proyectos
+                                li
+                                    a(href="#") #{proyecto.nombre}
+                        
 
             // Contenido de cada controlador
             block contenido
+
+            pre #{vardump(proyectos)}
     
