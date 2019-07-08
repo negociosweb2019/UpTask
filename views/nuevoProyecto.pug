@@ -1,5 +1,8 @@
 extends ./layout
 
+//- https://pugjs.org/language/mixins.html
+include mixins/crearProyecto
+
 block contenido
     .contenido-principal
         h1 #{nombrePagina}
@@ -9,11 +12,4 @@ block contenido
             each error in errores
                 .alerta.error #{error.texto}
 
-        form(class="agregar-proyecto" method="POST")
-            .campo
-                label(for="nombre") Nombre del proyecto:
-                input(type="text" id="nombre" name="nombre" placeholder="Nombre del proyecto")
-            .campo-enviar
-                input(type="submit" value="Agregar" class="boton")
-    
-
+        +crearProyecto(proyecto)

@@ -27,6 +27,13 @@ const Proyecto = db.define('proyecto', {
             const url = slug(proyecto.nombre).toLowerCase();
 
             proyecto.url = `${url}-${shortid.generate()}`;
+        },
+
+        beforeUpdate(proyecto) {
+            console.log('Antes de actualizar en la base de datos');
+            const url = slug(proyecto.nombre).toLowerCase();
+
+            proyecto.url = `${url}-${shortid.generate()}`;
         }
     }
 });
