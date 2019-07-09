@@ -135,3 +135,8 @@ exports.actualizarProyecto = async (req, res) => {
         res.redirect('/');
     }
 };
+
+exports.eliminarProyecto = async (req, res, next) => {
+    // La información se puede obtener de req, query o params
+    const {urlProyecto} = req.query;
+};
