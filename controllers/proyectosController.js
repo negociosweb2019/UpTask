@@ -138,5 +138,22 @@ exports.actualizarProyecto = async (req, res) => {
 
 exports.eliminarProyecto = async (req, res, next) => {
     // La información se puede obtener de req, query o params
+    // Obtener la información por destructuring
     const {urlProyecto} = req.query;
+
+    // Eliminar el proyecto utilizando Sequelize
+    const resultado = await Proyecto.destroy({
+        where : {
+            url : urlProyecto
+        }
+    });
+
+    // Si el proyecto no se puede eliminar
+    if (!resultado) {
+        return next();
+    }
+
+    // Tipos de respuestas de parte del backend (servidor)
+    // https://developer.mozilla.org/es/docs/Web/HTTP/Status
+    res.status(200).send('Proyecto eliminado correctamente');
 };
