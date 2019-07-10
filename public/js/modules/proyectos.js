@@ -51,3 +51,5 @@ btnEliminar.addEventListener('click', e => {
         }
       })
 });
+
+export default btnEliminar;

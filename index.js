@@ -12,8 +12,9 @@ const helpers = require('./helpers');
 // Crear la conexión con la Base de Datos
 const db = require('./config/db');
 
-// Importar el modelo
+// Importar los modelos
 require('./models/Proyecto');
+require('./models/Tarea');
 
 // Realizar la conexión
 // Sequelize se conecta mediante promises

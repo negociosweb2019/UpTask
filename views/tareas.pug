@@ -5,9 +5,20 @@ block contenido
         h1 #{nombrePagina} #{proyecto.nombre}
         pre #{vardump(proyecto)}
 
-        //- TODO: Formulario de tareas
+        form.agregar-tarea(action=`/proyectos/${proyecto.url}` method="POST")
+            .campo
+                label(for="tarea") Tarea:
+                input(type="text" name="tarea" placeholder="Nombre de la tarea")
+            .campo-enviar
+                input(type="submit" value="Agregar" class="boton")
 
-        //- TODO: Listado de tareas pendientes / realizadas
+        .listado-pendientes
+            ul
+                each tarea in tareas
+                    li.tarea
+                        p #{tarea.tarea}
+                        .acciones
+                            //- TODO: Implementar FontAwesome
 
         //- Acciones que se pueden realizar
         .contenedor-acciones

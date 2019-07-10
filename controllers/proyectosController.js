@@ -1,5 +1,6 @@
-// Importar el modelo
+// Importar los modelos
 const Proyecto = require('../models/Proyecto');
+const Tarea = require('../models/Tarea');
 
 exports.proyectosHome = async (req, res) => {
     // Obtener todos los proyectos
@@ -67,6 +68,13 @@ exports.proyectoPorUrl = async (req, res, next) => {
     // Promise con destructuring
     const [proyectos, proyecto] = await Promise.all([proyectosPromise, proyectoPromise]);
 
+    // Obtener las tareas del proyecto actual
+    const tareas = await Tarea.findAll({
+        where : {
+            proyectoId: proyecto.id
+        }
+    });
+
     // Verificar si se obtiene un proyecto en la consulta
     if (!proyecto) return next();
 
@@ -74,7 +82,8 @@ exports.proyectoPorUrl = async (req, res, next) => {
     res.render('tareas', {
         nombrePagina : 'Tareas del proyecto',
         proyectos,
-        proyecto
+        proyecto,
+        tareas
     })
 };
 

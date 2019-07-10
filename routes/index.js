@@ -6,9 +6,9 @@ const router = express.Router();
 // https://express-validator.github.io/docs/sanitization.html
 const { body } = require('express-validator/check');
 
-// Importar el Controller
-const proyectosController = require
-('../controllers/proyectosController');
+// Importar los Controllers
+const proyectosController = require('../controllers/proyectosController');
+const tareasController = require('../controllers/tareasController');
 
 module.exports = function() {
 
@@ -32,6 +32,9 @@ module.exports = function() {
 
     // Eliminar el proyecto
     router.delete('/proyecto/:url', proyectosController.eliminarProyecto);
+    
+    // Agregar tarea
+    router.post('/proyectos/:url', tareasController.agregarTarea);
     
     return router;
 }
