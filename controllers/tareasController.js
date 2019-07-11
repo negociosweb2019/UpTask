@@ -34,3 +34,30 @@ exports.agregarTarea = async (req, res, next) => {
 
     res.send('Enviado');
 }
+
+exports.actualizarEstadoTarea = async (req, res, next) => {
+    // Obtener el id de la tarea
+    // Patch solamente obtiene valores a través de req.params y no de req.query
+    const {id} = req.params;
+
+    // Buscar la tarea con el obtenido
+    const tarea = await Tarea.findOne({
+        where : {
+            id : id
+        }
+    });
+
+    // Cambiar el estado
+    let estado = tarea.estado == 0 ? 1 : 0;
+
+    tarea.estado = estado;
+
+    // Actualizar la tarea
+    const resultado = await tarea.save();
+
+    if (!resultado){
+        next();
+    }
+
+    res.status(200).send('Actualizado');
+}

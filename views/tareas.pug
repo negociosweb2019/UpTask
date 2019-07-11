@@ -14,11 +14,18 @@ block contenido
 
         .listado-pendientes
             ul
-                each tarea in tareas
-                    li.tarea
-                        p #{tarea.tarea}
-                        .acciones
-                            //- TODO: Implementar FontAwesome
+                if tareas.length
+                    each tarea in tareas
+                        li.tarea(data-tarea=tarea.id)
+                            p #{tarea.tarea}
+                            .acciones
+                                if tarea.estado
+                                    i.far.fa-check-circle.completo
+                                else
+                                    i.far.fa-check-circle
+                                i.fas.fa-trash
+                else
+                    p Este proyecto aún no tiene tareas definidas.
 
         //- Acciones que se pueden realizar
         .contenedor-acciones
