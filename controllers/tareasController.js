@@ -61,3 +61,21 @@ exports.actualizarEstadoTarea = async (req, res, next) => {
 
     res.status(200).send('Actualizado');
 }
+
+exports.eliminarTarea = async (req, res, next) => {
+    // Obtener el id de la tarea mediante query o params
+    const { id } = req.params;
+
+    // Eliminar la tarea
+    const resultado = await Tarea.destroy({
+        where : {
+            id : id
+        }
+    });
+
+    if(!resultado) {
+        return next();
+    }
+
+    res.send(200).send('La tarea ha sido eliminada correctamente');
+}
