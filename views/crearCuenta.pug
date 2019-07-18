@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        include partials/header
+    body.login
+        .contenedor-formulario
+            h1 Crea tu cuenta en UpTask
+
+            form(action="/crear_cuenta" method="POST" id="formulario" class="caja caja-login")
+                .campo
+                    label(for="email") Correo electrónico
+                    input(type="email" name="email" placeholder="Correo electrónico" required)
+                .campo
+                    label(for="password") Contraseña
+                    input(type="password" name="password" placeholder="Contraseña" required)
+                .campo.enviar
+                    input(type="submit" value="Crear cuenta" class="boton")
+                .campo
+                    a(href="/iniciar_sesion") Volver a iniciar sesión
+
+            script(src="/dist/bundle.js")

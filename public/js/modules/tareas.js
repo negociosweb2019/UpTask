@@ -1,5 +1,6 @@
 import Axios from "axios";
 import Swal from "sweetalert2";
+import {actualizarAvance } from '../functions/avance';
 
 // Seleccionar el objeto HTML que contiene las tareas
 const tareas = document.querySelector('.listado-pendientes');
@@ -23,6 +24,9 @@ if (tareas){
                         // Cambiar el estado del botón
                         // Toggle añade o remueve un clase a un elemento HTML5
                         icono.classList.toggle('completo');
+
+                        // Actualizar el avance del proyecto
+                        actualizarAvance();
                     }
                 });
         }
@@ -62,6 +66,9 @@ if (tareas){
                                     respuesta.data,
                                     'success'
                                 )
+
+                                // Actualizar avance del proyecto
+                                actualizarAvance();
                             }
                         })
                 }
