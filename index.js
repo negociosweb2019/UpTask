@@ -8,6 +8,8 @@ const path = require('path');
 const bodyParser = require('body-parser');
 // Importar los helpers con funciones en común para el proyecto
 const helpers = require('./helpers');
+// Importar connect-flags disponible para todo el sitio
+const flash = require('connect-flash');
 
 // Crear la conexión con la Base de Datos
 const db = require('./config/db');
@@ -35,6 +37,11 @@ app.set('view engine', 'pug');
 
 // Habilitar BodyParser para leer los datos de los formularios
 app.use(bodyParser.urlencoded({extended: true}));
+
+// habilitar el uso de mensajes de tipo connect-flash
+// https://github.com/jaredhanson/connect-flash
+// https://www.npmjs.com/package/connect-flash
+app.use(flash());
 
 // Pasar el vardump a la aplicación (middleware)
 app.use((req, res, next) => {
