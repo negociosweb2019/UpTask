@@ -244,6 +244,9 @@ body.index {
     margin: 0 auto 1rem auto;
     text-transform: uppercase;
 }
+p.alerta {
+    font-size: .9rem;
+}
 .error {
     color: red!important;
     background-color: rgb(255, 201, 201);

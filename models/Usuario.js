@@ -17,6 +17,9 @@ const Usuario = db.define('usuario', {
         validate : {
             isEmail : {
                 msg : 'Verifica que tu correo es un correo electrónico válido'
+            },
+            notEmpty : {
+                msg : 'El correo electrónico no puede ser vacío'
             }
         },
         unique : {
@@ -26,7 +29,12 @@ const Usuario = db.define('usuario', {
     },
     password : {
         type : Sequelize.STRING(60),
-        allowNull : false
+        allowNull : false,
+        validate : {
+            notEmpty : {
+                msg : 'La contraseña no puede ser vacía'
+            }
+        }
     }
 },
 {

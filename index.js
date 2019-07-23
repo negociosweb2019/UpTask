@@ -10,6 +10,10 @@ const bodyParser = require('body-parser');
 const helpers = require('./helpers');
 // Importar connect-flags disponible para todo el sitio
 const flash = require('connect-flash');
+// Importar express-session para poder manejar sesiones de usuario
+const session = require('express-session');
+// Importar cookie-parser para permitir el uso de cookies en el sitio
+const cookieParser = require('cookie-parser');
 
 // Crear la conexión con la Base de Datos
 const db = require('./config/db');
@@ -43,9 +47,24 @@ app.use(bodyParser.urlencoded({extended: true}));
 // https://www.npmjs.com/package/connect-flash
 app.use(flash());
 
+// Habilitar cookie-parser
+// https://www.npmjs.com/package/cookie-parser
+app.use(cookieParser());
+
+// Habilitar las sesiones
+// Las sesiones le permiten al usuario navegar entre distintas
+// páginas sin necesidad de volver a autenticarse
+// https://www.npmjs.com/package/express-session
+app.use(session({
+    secret : 'unultrasecreto',
+    resave : false,
+    saveUninitialized : false
+}))
+
 // Pasar el vardump a la aplicación (middleware)
 app.use((req, res, next) => {
     res.locals.vardump = helpers.vardump;
+    res.locals.mensajes = req.flash();
     next();
 });
 

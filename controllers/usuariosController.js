@@ -13,12 +13,24 @@ exports.crearCuenta = async (req, res, next) => {
     // Capturar los valores con destructuring
     const { email, password } = req.body;
 
-    // Crear el usuario
-    await Usuario.create({
-        email,
-        password
-    })
-    .then(() => {
-        res.redirect('/iniciar_sesion');
-    })
+    // Intentar crear el usuario y capturar el error en caso de haberlo
+    try {
+        // Crear el usuario
+        await Usuario.create({
+            email,
+            password
+        })
+        .then(() => {
+            res.redirect('/iniciar_sesion');
+        })
+    } catch (error) {
+        // Utilizando connect-flash
+        req.flash('error', error.errors.map(error => error.message));
+        res.render('crearCuenta', {
+            nombrePagina : 'Crear una cuenta en UpTask',
+            mensajes : req.flash(),
+            email,
+            password
+        });
+    }
 }
