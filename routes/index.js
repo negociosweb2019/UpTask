@@ -10,10 +10,14 @@ const { body } = require('express-validator/check');
 const proyectosController = require('../controllers/proyectosController');
 const tareasController = require('../controllers/tareasController');
 const usuariosController = require('../controllers/usuariosController');
+const authController = require('../controllers/authController');
 
 module.exports = function() {
 
-    router.get('/', proyectosController.proyectosHome);
+    router.get('/', 
+        authController.usuarioAutenticado,
+        proyectosController.proyectosHome
+    );
     router.get('/nuevo_proyecto', proyectosController.formularioProyecto);
     // Implementar la validación con express-validator
     router.post('/nuevo_proyecto', 
@@ -46,6 +50,13 @@ module.exports = function() {
     // Crear una nueva cuenta
     router.get('/crear_cuenta', usuariosController.formularioCrearCuenta);
     router.post('/crear_cuenta', usuariosController.crearCuenta);
+
+    // Iniciar sesión
+    router.get('/iniciar_sesion', usuariosController.formularioIniciarSesion);
+    router.post('/iniciar_sesion', authController.autenticarUsuario);
+
+    // Cerrar sesión
+    router.get('/cerrar_sesion', authController.cerrarSesion);
     
     return router;
 }

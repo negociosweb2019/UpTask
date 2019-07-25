@@ -34,3 +34,13 @@ exports.crearCuenta = async (req, res, next) => {
         });
     }
 }
+
+exports.formularioIniciarSesion = (req, res) => {
+    // Capturar los errores generados por passport
+    const { error } = res.locals.mensajes;
+    
+    res.render('iniciarSesion', {
+        nombrePagina : 'inicio de sesión en UpTask',
+        error
+    });
+}

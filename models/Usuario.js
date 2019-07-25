@@ -45,7 +45,13 @@ const Usuario = db.define('usuario', {
             usuario.password = bcrypt.hashSync(usuario.password, bcrypt.genSaltSync(10));
         }
     }
-})
-Usuario.hasMany(Proyecto);
+});
+// Usuario.hasMany(Proyecto);
+
+// Métodos personalizados
+// Verificar si el password enviado es igual al existente
+Usuario.prototype.verificarPassword = function (password) {
+    return bcrypt.compareSync(password, this.password);
+}
 
 module.exports = Usuario;

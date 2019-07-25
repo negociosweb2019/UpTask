@@ -14,6 +14,8 @@ const flash = require('connect-flash');
 const session = require('express-session');
 // Importar cookie-parser para permitir el uso de cookies en el sitio
 const cookieParser = require('cookie-parser');
+// Importar passport para permitir el inicio de sesión en el sitio
+const passport = require('./config/passport');
 
 // Crear la conexión con la Base de Datos
 const db = require('./config/db');
@@ -59,7 +61,11 @@ app.use(session({
     secret : 'unultrasecreto',
     resave : false,
     saveUninitialized : false
-}))
+}));
+
+// Crear una instancia de passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Pasar el vardump a la aplicación (middleware)
 app.use((req, res, next) => {
