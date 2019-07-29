@@ -44,3 +44,9 @@ exports.formularioIniciarSesion = (req, res) => {
         error
     });
 }
+
+exports.formularioReestablecerPassword = async (req, res) => {
+    res.render('reestablecer', {
+        nombrePagina : 'Reestablece tu contraseña'
+    });
+}

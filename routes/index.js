@@ -18,28 +18,45 @@ module.exports = function() {
         authController.usuarioAutenticado,
         proyectosController.proyectosHome
     );
-    router.get('/nuevo_proyecto', proyectosController.formularioProyecto);
+    router.get('/nuevo_proyecto', 
+        authController.usuarioAutenticado,
+        proyectosController.formularioProyecto
+    );
     // Implementar la validación con express-validator
     router.post('/nuevo_proyecto', 
+        authController.usuarioAutenticado,
         body('nombre').not().isEmpty().trim().escape(),
         proyectosController.nuevoProyecto
     );
 
     // Mostrar un proyecto existente mediante su URL
-    router.get('/proyectos/:url', proyectosController.proyectoPorUrl);
+    router.get('/proyectos/:url', 
+        authController.usuarioAutenticado,
+        proyectosController.proyectoPorUrl
+    );
 
     // Actualizar un proyecto
-    router.get('/proyecto/editar/:id', proyectosController.formularioEditar);
-    router.post('/nuevo_proyecto/:id', 
+    router.get('/proyecto/editar/:id',
+        authController.usuarioAutenticado, 
+        proyectosController.formularioEditar
+    );
+    router.post('/nuevo_proyecto/:id',
+        authController.usuarioAutenticado, 
         body('nombre').not().isEmpty().trim().escape(),
         proyectosController.actualizarProyecto
     );
 
     // Eliminar el proyecto
-    router.delete('/proyecto/:url', proyectosController.eliminarProyecto);
+    router.delete('/proyecto/:url', 
+        authController.usuarioAutenticado,
+        proyectosController.eliminarProyecto
+    );
     
     // Agregar tarea
-    router.post('/proyectos/:url', tareasController.agregarTarea);
+    router.post('/proyectos/:url',
+        authController.usuarioAutenticado,
+        tareasController.agregarTarea
+    );
 
     // Actualizar el estado de una tarea
     router.patch('/tarea/:id', tareasController.actualizarEstadoTarea);
@@ -57,6 +74,10 @@ module.exports = function() {
 
     // Cerrar sesión
     router.get('/cerrar_sesion', authController.cerrarSesion);
+
+    // Reestablecer la contraseña
+    router.get('/reestablecer', usuariosController.formularioReestablecerPassword);
+    router.post('/reestablecer', authController.enviarToken);
     
     return router;
 }

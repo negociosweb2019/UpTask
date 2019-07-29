@@ -46,7 +46,7 @@ const Usuario = db.define('usuario', {
         }
     }
 });
-// Usuario.hasMany(Proyecto);
+Usuario.hasMany(Proyecto);
 
 // Métodos personalizados
 // Verificar si el password enviado es igual al existente

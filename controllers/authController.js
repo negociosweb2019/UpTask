@@ -1,5 +1,7 @@
 // Importar passport
 const passport = require('passport');
+// Importar el modelo de Usuario
+const Usuario = require('../models/Usuario');
 
 exports.autenticarUsuario = passport.authenticate('local', {
     successRedirect : '/',
@@ -24,4 +26,15 @@ exports.usuarioAutenticado = (req, res, next) => {
 
     // Si el usuario no está autenticado que inicie sesión
     return res.redirect('/iniciar_sesion');
+}
+
+// Generar un token si el usuario es válido
+exports.enviarToken = async (req, res) => {
+    // Verificar si el usuario existe
+    const { email } = req.body;
+    const usuario = await Usuario.findOne({
+        where : {
+            email : email
+        }
+    });
 }

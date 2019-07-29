@@ -3,8 +3,13 @@ const Proyecto = require('../models/Proyecto');
 const Tarea = require('../models/Tarea');
 
 exports.proyectosHome = async (req, res) => {
-    // Obtener todos los proyectos
-    const proyectos = await Proyecto.findAll();
+    // Obtener todos los proyectos del usuario actual
+    const usuarioId = res.locals.usuario.id;
+    const proyectos = await Proyecto.findAll({
+        where : {
+            usuarioId : usuarioId
+        }
+    });
 
     res.render('index', {
         nombrePagina : 'Proyectos',
@@ -13,8 +18,13 @@ exports.proyectosHome = async (req, res) => {
 };
 
 exports.formularioProyecto = async (req, res) => {
-    // Obtener todos los proyectos (modelos)
-    const proyectos = await Proyecto.findAll();
+    // Obtener todos los proyectos del usuario actual
+    const usuarioId = res.locals.usuario.id;
+    const proyectos = await Proyecto.findAll({
+        where : {
+            usuarioId : usuarioId
+        }
+    });
 
     res.render('nuevoProyecto', {
         nombrePagina : 'Nuevo proyecto',
@@ -23,8 +33,13 @@ exports.formularioProyecto = async (req, res) => {
 };
 
 exports.nuevoProyecto = async (req, res) => {
-    // Obtener todos los proyectos (modelos)
-    const proyectos = await Proyecto.findAll();
+    // Obtener todos los proyectos del usuario actual
+    const usuarioId = res.locals.usuario.id;
+    const proyectos = await Proyecto.findAll({
+        where : {
+            usuarioId : usuarioId
+        }
+    });
 
     // Validar que el input del formulario traiga un valor
     // Utilizamos asignación por destructuring
@@ -47,7 +62,9 @@ exports.nuevoProyecto = async (req, res) => {
     } else {
         // No existen errores
         // Inserción en la base de datos.
-        await Proyecto.create({ nombre });
+        const usuarioId = res.locals.usuario.id;
+        console.log(res.locals.usuario);
+        await Proyecto.create({ nombre, usuarioId });
 
         // Redirigir hacia la ruta principal
         res.redirect('/');
@@ -55,8 +72,13 @@ exports.nuevoProyecto = async (req, res) => {
 };
 
 exports.proyectoPorUrl = async (req, res, next) => {
-    // Obtener todos los modelos
-    const proyectosPromise = Proyecto.findAll();
+    // Obtener todos los proyectos del usuario actual
+    const usuarioId = res.locals.usuario.id;
+    const proyectosPromise = await Proyecto.findAll({
+        where : {
+            usuarioId : usuarioId
+        }
+    });
 
     // Obtener el proyecto a editar
     const proyectoPromise = Proyecto.findOne({
@@ -88,8 +110,13 @@ exports.proyectoPorUrl = async (req, res, next) => {
 };
 
 exports.formularioEditar = async (req, res) => {
-    // Obtener todos los modelos
-    const proyectosPromise = Proyecto.findAll();
+    // Obtener todos los proyectos del usuario actual
+    const usuarioId = res.locals.usuario.id;
+    const proyectosPromise = await Proyecto.findAll({
+        where : {
+            usuarioId : usuarioId
+        }
+    });
 
     // Obtener el proyecto a editar
     const proyectoPromise = Proyecto.findOne({
@@ -109,8 +136,13 @@ exports.formularioEditar = async (req, res) => {
 };
 
 exports.actualizarProyecto = async (req, res) => {
-    // Obtener todos los proyectos (modelos)
-    const proyectos = await Proyecto.findAll();
+    // Obtener todos los proyectos del usuario actual
+    const usuarioId = res.locals.usuario.id;
+    const proyectos = await Proyecto.findAll({
+        where : {
+            usuarioId : usuarioId
+        }
+    });
 
     // Validar que el input del formulario traiga un valor
     // Utilizamos asignación por destructuring
