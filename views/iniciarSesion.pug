@@ -6,9 +6,12 @@ html(lang="en")
         .contenedor-formulario
             h1 Inicio de sesión en UpTask
 
-            //- Mostrar los errores de inicio de sesión
-            if error
-                p.alerta.error #{error}
+            //- Mostrando los errores de inicio de sesión
+            if locals.mensajes
+                each categoria in Object.keys(locals.mensajes)
+                    each error in mensajes[categoria]
+                        .alerta(class=`${categoria}`)
+                            p #{error}
 
             form(action="/iniciar_sesion" method="POST" id="formulario" class="caja caja-login")
                 .campo

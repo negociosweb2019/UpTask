@@ -78,6 +78,8 @@ module.exports = function() {
     // Reestablecer la contraseña
     router.get('/reestablecer', usuariosController.formularioReestablecerPassword);
     router.post('/reestablecer', authController.enviarToken);
+    router.get('/reestablecer/:token', authController.validarToken);
+    router.post('/reestablecer/:token', authController.actualizarPassword);
     
     return router;
 }

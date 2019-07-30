@@ -7,6 +7,13 @@ html(lang="en")
             h1 #{nombrePagina}
             p Ingresa tu correo electrónico para reestablecer tu contraseña
 
+            //- Mostrando los errores de reestablecer contraseña
+            if locals.mensajes
+                each categoria in Object.keys(locals.mensajes)
+                    each error in mensajes[categoria]
+                        .alerta(class=`${categoria}`)
+                            p #{error}
+
             form(action="/reestablecer" method="POST" class="caja caja-login")
                 .campo
                     label(for="email") Correo electrónico
