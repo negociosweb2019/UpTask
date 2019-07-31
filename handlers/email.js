@@ -11,7 +11,7 @@ const mailTrapConfig = require('../config/email');
 
 //Realizar el envío del correo electrónico
 // https://nodemailer.com/about/
-async function main(){
+exports.enviarCorreo = async (opciones) => {
   
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
@@ -19,18 +19,26 @@ async function main(){
         port: mailTrapConfig.port,
         secure: false, // true for 465, false for other ports
         auth: {
-        user: mailTrapConfig.user, // generated ethereal user
-        pass: mailTrapConfig.pass // generated ethereal password
+            user: mailTrapConfig.user, // generated ethereal user
+            pass: mailTrapConfig.pass // generated ethereal password
       }
     });
+
+    // Generar HTML desde una vista en PUG
+    const generarHTML = (vista, opciones = {}) => {
+        const html = pug.renderFile(`${__dirname}/../views/emails/${vista}.pug`, opciones);
+        return juice(html);
+    }
+
+    const html = generarHTML(opciones.vista, opciones);
+    // const text = htmlToText(html);
   
     // send mail with defined transport object
     let info = await transporter.sendMail({
         from: '"UpTask <no-reply@uptask.com>', // sender address
-        to: "email@example.com", // list of receivers
-        subject: "Hello ✔", // Subject line
-        text: "Hello world?", // plain text body
-        html: "<b>Hello world?</b>" // html body
+        to: opciones.usuario.email, // list of receivers
+        subject: opciones.subject, // Subject line
+        text : 'Hola', // plain text body
+        html // html body
     });
 }
-main().catch(console.error);

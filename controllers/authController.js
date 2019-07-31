@@ -9,6 +9,8 @@ const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 // Importar bcrypt
 const bcrypt = require('bcrypt-nodejs');
+// Importar el módulo de envío de correos electrónicos
+const enviarEmail = require('../handlers/email');
 
 exports.autenticarUsuario = passport.authenticate('local', {
     successRedirect : '/',
@@ -60,10 +62,19 @@ exports.enviarToken = async (req, res) => {
     await usuario.save();
 
     // URL de reset
-    const resetUrl = `http;//${req.headers.host}/reestablecer/${usuario.token}`;
+    const resetUrl = `http://${req.headers.host}/reestablecer/${usuario.token}`;
 
-    console.log(resetUrl);
-    // e3330a80032e1c3c7e93acd6ac81f3f7a5ce5f18
+    // Envía el correo electrónico con el token generado
+    await enviarEmail.enviarCorreo({
+        usuario,
+        subject : 'Reestablecer tu contraseña en UpTask',
+        resetUrl,
+        vista : 'reestablecerPassword'
+    });
+
+    // redireccionar al inicio de sesión
+    req.flash('correcto', 'Se envió un enlace para reestablecer tu contraseña a tu correo electrónico');
+    res.redirect('/iniciar_sesion');
 }
 
 // Valida el token que se envía a través de la URL
